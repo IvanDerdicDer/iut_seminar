@@ -1,2 +1,26 @@
 \chapter{Plasiranje inovacije} \label{plasiranje_inovacije}
 
+Prijedlog inovacije je alat za upravljanje SQL grupama, korisnicima i pravima.
+Poterba za ovakvim alatom je nastala iz potrebe za jednostavnim upravljanjem
+pravima na bazama podataka u više okolina. Upravljanje pravima na bazama
+podataka je kompleksan posao koji zahtjeva znanje o bazama podataka i
+operativnom sistemu. Trenutno ne postoji alat koji omogućuje jednostavnu
+administraciju prava na bazama podataka. Upravljanje pravima na bazama
+podataka se vrši kroz SQL upite koji su specifični za svaki SQL dijalekt.
+Prijedlog inovacije omogućuje jednostavno upravljanje pravima na bazama
+podataka na način da se centrealno definiraju prava i okoline, a zatim se
+prava dodjeljuju korisnicima i grupama. Prijedlog inovacije omogućuje
+upravljanje pravima na bazama podataka u više okolina, a prava se mogu
+definirati u konkretnom SQL dijalektu. Inovacija nije namijenjena razvojnom
+osoblju već administratorima baza podataka.
+
+Trenutno ukoliko se želi upravljati pravima na bazama podataka u više okolina,
+potrebno je za svaku okolinu ručno definirati prava. Ovakav pristup često može
+dovesti do grešaka u definiranju prava. Također ovakav pristup je vremenski
+zahtjevan i nije skalabilan. Uz to praćenje prava je teško ukoliko nisu dobro
+dokumentirana. Predloženom inovacijom dokumentiranje bi bilo jednostavno jer bi
+se prava definirala u jednom mjestu. Također bi se moglo pratiti koja prava su
+dodjeljena korisnicima i grupama. Ukoliko bi se prava mijenjala, promjene bi se
+mogle pratiti kroz verzioniranje.
+
+\section{Pregled sličnih rješenja} \label{pregled_slicnih_rjesenja}
