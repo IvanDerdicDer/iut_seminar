@@ -1,5 +1,13 @@
-\documentclass[times, utf8, seminar]{fer}
+\documentclass[times, utf8, seminar, numeric]{fer}
 \usepackage{booktabs}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true, 
+    linkcolor=blue,
+    urlcolor=cyan,
+    citecolor=blue
+}
 
 \begin{document}
 
@@ -16,16 +24,15 @@
 \chapter{Uvod}
 Uvod rada. Nakon uvoda dolaze poglavlja u kojima se obrađuje tema.
 
+\include{chapters/uvod_u_inovacije.tex}
 \include{chapters/zatvorene_inovacije.tex}
 \include{chapters/otvorene_inovacije.tex}
+\include{chapters/usporedba_otvorene_i_zatvorene_inovacije.tex}
 
 \chapter{Zaključak}
 Zaključak.
 
 \bibliography{literatura}
-\bibliographystyle{fer}
-
-\chapter{Sažetak}
-Sažetak.
+\bibliographystyle{ieeetr}
 
 \end{document}
