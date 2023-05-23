@@ -5,14 +5,14 @@ Poterba za ovakvim alatom je nastala iz potrebe za jednostavnim upravljanjem
 pravima na bazama podataka u više okolina. Upravljanje pravima na bazama
 podataka je kompleksan posao koji zahtjeva znanje o bazama podataka i
 operativnom sistemu. Trenutno ne postoji alat koji omogućuje jednostavnu
-administraciju prava na bazama podataka. Upravljanje pravima na bazama
-podataka se vrši kroz SQL upite koji su specifični za svaki SQL dijalekt.
-Prijedlog inovacije omogućuje jednostavno upravljanje pravima na bazama
-podataka na način da se centrealno definiraju prava i okoline, a zatim se
-prava dodjeljuju korisnicima i grupama. Prijedlog inovacije omogućuje
-upravljanje pravima na bazama podataka u više okolina, a prava se mogu
-definirati u konkretnom SQL dijalektu. Inovacija nije namijenjena razvojnom
-osoblju već administratorima baza podataka.
+administraciju prava na bazama podataka. Upravljanje pravima na bazama podataka
+se vrši kroz SQL upite koji su specifični za svaki SQL dijalekt. Prijedlog
+inovacije omogućuje jednostavno upravljanje pravima na bazama podataka na način
+da se centrealno definiraju prava i okoline, a zatim se prava dodjeljuju
+korisnicima i grupama. Prijedlog inovacije omogućuje upravljanje pravima na
+bazama podataka u više okolina, a prava se mogu definirati u konkretnom SQL
+dijalektu. Inovacija nije namijenjena razvojnom osoblju već administratorima
+baza podataka.
 
 Trenutno ukoliko se želi upravljati pravima na bazama podataka u više okolina,
 potrebno je za svaku okolinu ručno definirati prava. Ovakav pristup često može
@@ -24,3 +24,95 @@ dodjeljena korisnicima i grupama. Ukoliko bi se prava mijenjala, promjene bi se
 mogle pratiti kroz verzioniranje.
 
 \section{Pregled sličnih rješenja} \label{pregled_slicnih_rjesenja}
+
+Trenutno na tržištu ne postoji alat koji omogućuje jednostavno upravljanje
+pravima na bazama podataka kroz više okruženja. Trenutno tržište se fokusira na
+razvojne alate koji omogućuju razvoj aplikacija. Posljedica toga je da alati za
+upravljanje pravima na bazama podataka nisu razvijeni ili su zastarjeli. Postoji
+alat Idera SQL Permission Extractor \citep{idera} koji omogućuje izvlačenj prava
+iz postojeće baze podataka u SQL skriptu. Ovaj alat ne omogućuje upravljanje
+pravima na bazama podataka. Također ne omogućuje upravljanje pravima na bazama
+podataka kroz više okruženja. Također Idera SQL Permission Extractor radi samo
+na Microsoft SQL Serveru. 
+
+Postoji i alat SQL Server Permissions Manager \citep{ericcobb} koji omogućuje
+upravljanje pravima na bazama podataka. Ovaj alat je set skripti koje se
+izvršavaju bazi podataka. Skripte kreiraju zasebnu shemu i razne procedure koje
+omogućuju verzioniranje, dodavanje i brisanje prava. Ovaj alat ne omogućuje
+upravljanje pravima na bazama podataka kroz više okruženja. No ovaj alat može
+raditi sa svim SQL bazama podataka na jednom SQL serveru.
+
+\section{Tehnički opis inovacije} \label{tehnicki_opis_inovacije}
+
+Prijedlog inovacije je CLI aplikacija koja omogućuje upravljanje pravima na
+bazama podataka. Aplikacija je napisana u programskom jeziku Python. Aplikacija
+koristi ODBC ili JDBC konekciju za komunikaciju sa bazom podataka. ODBC i JDBC
+su standardi za komunikaciju sa bazama podataka. Ovi standardi omogućuju
+komunikaciju sa raznim bazama podataka. Aplikacija je zamišljena da podržava sve
+SQL dijalekte. To se postiže tako da se prava definiraju u SQL upitima, a ne
+kroz parametre. Također aplikacija podržava verzioniranje prava. Verzioniranje
+prava se postiže tako da se prava definiraju u datotekama. Datoteke se nalaze u
+direktoriju koji je inicijaliziran kao git repozitorij. Također aplikacija
+omogućuje upravljanje pravima kroz više okruženja. Ovo se postiže tako da se u
+konfiguracijsku datoteku aplikacije definiraju okruženja. U konfiguracijskoj
+datoteci se definiraju konekcije za svako okruženje. Skripte koje definiraju se
+mogu parametrizirati za izvršavanje na više okruženja korištenjem Jinja2
+templating jezika. Jinja2 je templating jezik koji omogućuje parametrizaciju
+teksta. Sličan pristup koristi alat DBT \citep{dbt} koji omogućuje upravljanje
+tablicama na bazama podataka. Pošto alat za upravljanje pravima izvršava SQL
+skripte na bazama podataka nije potrebno jako računalo za pokretanje alata.
+Alat će biti dostupan kao CLI aplikacija. CLI aplikacija će biti dostupna za
+Linux, Windows i Mac operativne sustave. CLI aplikacija će biti dostupna kao
+Python paket. Python paket će biti dostupan na Python paket menadžerima PyPI i
+Conda. 
+
+\section{Prednosti inovacije} \label{prednosti_inovacije}
+
+Ova inovacija omogućuje jednostavno upravljanje pravima na bazama podataka kroz
+više okruženja. Također omogućuje verzioniranje prava. Centralizacijom prava
+postiže se jednostavnije upravljanje pravima, jednostavnije praćenje prava i
+jednostavnije dokumentiranje prava. Korištenjem GITa za verzioniranje prava
+postiže se jednostavnije praćenje promjena prava i jednostavno vraćanje na
+prethodno stanje. Također korištenjem GITa za verzioniranje prava postiže se
+jednostavnije praćenje tko i kada je napravio promjenu prava. Korištenjem GITa
+za verzioniranje prava postiže se jednostavnije praćenje zašto je napravljena
+promjena prava. Pošto alat sam izvršava SQL skripte na bazama podataka smanjuje
+se mogućnost ljudske pogreške. Korištenjem alata smanjuje se vrijeme potrebno za
+upravljanje pravima. Korištenjem alata smanjuje se vrijeme potrebno za
+upogonjenje beze podataka na novoj okolini i time se ubrzava proces razvoja.
+Korištenjem alata smanjuje se vrijeme potrebno za dokumentiranje prava. Ukoliko
+dođe do katastrofalnog gubitka baze podataka, alat omogućuje brzo ponovno
+uspostavljanje prava na bazi podataka.
+
+\section{Ciljna skupina} \label{ciljna_skupina}
+
+Ciljna skupina su tvrtke koje razvijaju aplikacije koje koriste SQL baze
+podataka. Također ciljna skupina su tvrtke koje imaju više okruženja za
+razvoj aplikacija. Također ciljna skupina su tvrtke koje imaju više razvojnih
+timova koji rade na istoj bazi podataka. Unutar tvrtki ciljna skupina su
+administratori baza podataka, razvojni inženjeri i DevOps inženjeri.
+Također cilja skupina su pojedinci koji dovoljno poznavaju SQL i žele
+jednostavnije upravljati pravima na bazama podataka. No glavna ciljna skupina su
+tvrtke koje se bave podacima. Specifično tvrtke koje se bave analitikom podataka
+i tvrtke koje se bave upravljanjem podacima. Takvim tvrtka je bitno da imaju
+robustan sustav za upravljanje pravima na bazama podataka. Takvim tvrtkama je
+bitno da imaju centralizirano upravljanje pravima na bazama podataka. Takvim
+tvrtkama je bitno da imaju verzioniranje prava na bazama podataka. Takvim
+tvrtkama je bitno da imaju dokumentiranje prava na bazama podataka.
+
+\section{Konkurencija} \label{konkurencija}
+
+Trenutno na tržištiu ne postoji direktna konkurencija. Kako je 
+navedeno u poglavlju~(\ref{pregled_slicnih_rjesenja}) postoje alati koji
+implementiraju neke segmente ove inovacije. No niti jedan alat ne implementira
+sve segmente ove inovacije. Također niti jedan alat ne implementira segmente
+ove inovacije na način na koji je to implementirano u ovoj inovaciji. 
+
+\section{Komerijalizacija} \label{komerijalizacija}
+
+Alat će biti dostupan kao program otvorenog koda. Alat će biti dostupan na
+GitHubu. Alat će biti dostupan pod MIT licencom. Nuuditi će se podrška za
+alat. Podrška će se nuditi kroz održavanje alata i kroz konzultacije. Održavanje
+i konzultacije će se naplaćivati po satu. Održavanje i konzultacije će se
+naplaćivati u eurima. Održavanje i konzultacije će se naplaćivati prema
+cjeniku. 
